@@ -8,8 +8,6 @@ const app = express();
 
 app.use('/signup', signup);
 app.use('/login', login);
-app.use('/message', twilio);
-app.use('/distance', postcodes);
 
 
 app.get('/', (req, res) => {
