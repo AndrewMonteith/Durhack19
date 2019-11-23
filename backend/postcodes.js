@@ -9,7 +9,7 @@ const request = require('request')
 // }))
 
 const getLongLat = async (postcode) => {
-    return await Promise(resolve => {
+    return new Promise(resolve => {
         request.get(`http://api.postcodes.io/postcodes/${postcode}`, (error, response, body) => {
             if (!error && response.statusCode == 200) {
                 body = JSON.parse(body)
@@ -18,6 +18,7 @@ const getLongLat = async (postcode) => {
                     long: body.result.longitude
                 })
             } else {
+                console.log("fuck")
                 resolve(-1)
             }
         })
