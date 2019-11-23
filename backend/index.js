@@ -9,6 +9,6 @@ app.use('/login', login);
 
 
 app.get('/', (req, res) => {
-    return 'hi';
+    console.log('test');
 });
 app.listen(5000);
