@@ -17,7 +17,7 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
 import Markdown from './Markdown';
-import SearchBar from './SearchBar'
+import SearchBar from './SearchBox'
 
 function Copyright() {
   return (
@@ -183,7 +183,13 @@ export default function Blog() {
               <Grid item md={6}>
                 <div className={classes.mainFeaturedPostContent}>
                   <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-                    When you just need <br></br>a helping hand...    
+                    When you just need <br></br>a helping hand...   
+                    <br></br> 
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
                   </Typography>
                   {/* <Typography variant="h5" color="inherit" paragraph>
                     Multiple lines of text that form the lede, informing new readers quickly and
@@ -192,9 +198,9 @@ export default function Blog() {
                   <Link variant="subtitle1" href="#">
                     Continue reading…
                   </Link> */}
-                  <SearchBar/>
                 </div>
               </Grid>
+              <SearchBar/>
             </Grid>
           </Paper>
           <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
@@ -211,6 +217,7 @@ export default function Blog() {
             </Link>
           ))}
         </Toolbar>
+        <Divider />
           {/* End main featured post */}
           {/* Sub featured posts */}
           <Grid container spacing={4}>
@@ -250,7 +257,7 @@ export default function Blog() {
           <Grid container spacing={5} className={classes.mainGrid}>
             {/* Main content */}
             <Grid item xs={12} md={8}>
-              <Typography variant="h6" gutterBottom>
+              {/* <Typography variant="h6" gutterBottom>
                 From the Firehose
               </Typography>
               <Divider />
@@ -258,7 +265,7 @@ export default function Blog() {
                 <Markdown className={classes.markdown} key={post.substring(0, 40)}>
                   {post}
                 </Markdown>
-              ))}
+              ))} */}
             </Grid>
             {/* End main content */}
             {/* Sidebar */}
@@ -273,14 +280,7 @@ export default function Blog() {
                 </Typography>
               </Paper>
             
-              <Typography variant="h6" gutterBottom className={classes.sidebarSection}>
-                Social
-              </Typography>
-              {social.map(network => (
-                <Link display="block" variant="body1" href="#" key={network}>
-                  {network}
-                </Link>
-              ))}
+            
             </Grid>
             {/* End sidebar */}
           </Grid>
