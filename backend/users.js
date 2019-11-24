@@ -112,6 +112,11 @@ const data = [
                 "gender": "F",
                 "disability": "motor neuron disease",
                 "since": "2010-08-04"
+            },
+            {
+                "gender": "F",
+                "disability": "autisim",
+                "since": "2010-08-04"
             }
         ]
     },
