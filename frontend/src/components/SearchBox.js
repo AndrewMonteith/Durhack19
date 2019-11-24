@@ -89,16 +89,8 @@ function SearchBox(props) {
                                     search = "help"
                                 }
 
-                                let self = this
-
                                 fetch(`http://localhost:5000/search?query=${query}&search=${search}&postcode=${postcode}`)
                                     .then(res => res.json().then(props.updateFeatureCards))
-
-                                // Make post request
-                                // .then(result => func-from-parent(result))
-                                // console.log(document.getElementById("search-field").value)
-                                // console.log(document.getElementById("postcode-field").value)
-                                e.preventDefault();
                             }
                         }}
                         placeholder="Search..."

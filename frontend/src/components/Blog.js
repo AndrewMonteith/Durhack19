@@ -161,7 +161,7 @@ export default function Blog() {
     const classes = useStyles();
 
     const [state, setState] = React.useState({
-        featuredPosts: [] //_featuredPosts
+        featuredPosts: _featuredPosts
     });
 
     return (
