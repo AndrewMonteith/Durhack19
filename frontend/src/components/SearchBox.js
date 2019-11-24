@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-function SearchBox() {
+function SearchBox(props) {
 
     const classes = useStyles();
 
@@ -89,8 +89,10 @@ function SearchBox() {
                                     search = "help"
                                 }
 
+                                let self = this
+
                                 fetch(`http://localhost:5000/search?query=${query}&search=${search}&postcode=${postcode}`)
-                                    .then(res => console.log(res))
+                                    .then(res => res.json().then(props.updateFeatureCards))
 
                                 // Make post request
                                 // .then(result => func-from-parent(result))

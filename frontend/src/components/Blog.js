@@ -106,7 +106,7 @@ const sections = [
     'vdvrdvrv'
 ];
 
-const featuredPosts = [
+const _featuredPosts = [
     {
         title: 'Featured post',
         date: 'Nov 12',
@@ -160,6 +160,10 @@ const social = ['GitHub', 'Twitter', 'Facebook'];
 export default function Blog() {
     const classes = useStyles();
 
+    const [state, setState] = React.useState({
+        featuredPosts: [] //_featuredPosts
+    });
+
     return (
         <React.Fragment>
             <CssBaseline />
@@ -180,7 +184,7 @@ export default function Blog() {
                         <SearchIcon/>
                     </IconButton>
                     <Button variant="outlined" size="small">
-                        Sign up
+                        Login
           </Button>
                 </Toolbar>
                 <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
@@ -230,7 +234,10 @@ export default function Blog() {
                   </Link> */}
                                 </div>
                             </Grid>
-                            <SearchBar />
+                            <SearchBar updateFeatureCards={(cards) => {
+                                console.log(cards)
+                                setState({featuredPosts: cards}) 
+                            }} />
                         </Grid>
                     </Paper>
                     <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
@@ -250,7 +257,7 @@ export default function Blog() {
                     {/* End main featured post */}
                     {/* Sub featured posts */}
                     <Grid container spacing={4}>
-                        {featuredPosts.map(post => (
+                        {state.featuredPosts.map(post => (
                             <Grid item key={post.title} xs={12} md={6}>
                                 <CardActionArea component="a" href="#">
                                     <Card className={classes.card}>

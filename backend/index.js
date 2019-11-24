@@ -22,6 +22,7 @@ app.use('/search', async (request, response) => {
     const result = await search(query)
    
     response.status(200)
+    console.log("giving back", result)
     response.json(result)
 })
 
