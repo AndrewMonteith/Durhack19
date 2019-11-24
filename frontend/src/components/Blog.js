@@ -1,4 +1,4 @@
-import  React from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -23,6 +23,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Markdown from './Markdown';
+import CloseIcon from '@material-ui/icons/Close';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+
 import SearchBar from './SearchBox'
 
 function Copyright() {
@@ -81,7 +84,7 @@ const useStyles = makeStyles(theme => ({
     },
     card: {
         display: 'flex',
-        height: 200,
+        height: 250,
         textAlign: 'left',
     },
     cardDetails: {
@@ -94,57 +97,50 @@ const useStyles = makeStyles(theme => ({
         ...theme.typography.body2,
         padding: theme.spacing(3, 0),
     },
-    sidebarAboutBox: {
-        padding: theme.spacing(2),
-        backgroundColor: theme.palette.grey[200],
-    },
-    sidebarSection: {
-        marginTop: theme.spacing(3),
-    },
     footer: {
         backgroundColor: theme.palette.background.paper,
         marginTop: theme.spacing(8),
         padding: theme.spacing(6, 0),
     },
+    contactButton: {
+        position: 'absolute',
+        bottom: '5%',
+        margin: '5% 0 0'
+    },
+    root: {
+        margin: 0,
+        padding: theme.spacing(2),
+    },
+    closeButton: {
+        position: 'absolute',
+        right: theme.spacing(1),
+        top: theme.spacing(1),
+        color: theme.palette.grey[500],
+    },
+    loginform: {
+        display: 'block',
+        width: '100%'
+    },
+    loginformbox: {
+        width: 300,
+        
+    }
 }));
 
-const sections = [
-    'ggegre',
-    'gtehugre',
-    'vdvrdvrv'
-];
 
-const _featuredPosts = [
-    {
-        "where": "DH8 9LD",
-        "when": "2019-12-01",
-        "who": "Helping You",
-        "name": "Horse Riding",
-        "desc": "Come and ride some horses and chill out",
-        "for": ["autism", "adhd", "aspergers"]
-    },
-    {
-        "where": "DH3 2LY",
-        "when": "2019-15-02",
-        "who": "Hettie Delvin",
-        "name": "Fairground",
-        "desc": "Enjoy the bright lights and funfair rides!",
-        "for": ["spina bifida", "motor neuron disease"]
-    },
-  ]
+const _featuredPosts = []
 
-const posts = ['frfr', 'eee', 'dede'];
-
-
-
-const social = ['GitHub', 'Twitter', 'Facebook'];
 
 export default function Blog() {
     const classes = useStyles();
 
     const [state, setState] = React.useState({
         featuredPosts: [], //_featuredPosts
-        showMsgDialog: false
+        showMsgDialog: false,
+        showLoginDialog: false,
+        isLoggedin: false,
+        username: '',
+        phone: ''
     });
 
     return (
@@ -164,11 +160,32 @@ export default function Blog() {
                         Hand.
           </Typography>
                     <IconButton>
-                        <SearchIcon/>
+                        <SearchIcon />
                     </IconButton>
-                    <Button variant="outlined" size="small">
+                    <Button onClick={() => setState({ featuredPosts: state.featuredPosts, showMsgDialog: state.showMsgDialog, showLoginDialog: true })} variant="outlined" size="small">
                         Login
+                     </Button>
+                    <Dialog aria-labelledby="customized-dialog-title" open={state.showLoginDialog}>
+                        <MuiDialogTitle disableTypography className={classes.root}>
+                            <Typography variant="h6">Login</Typography>
+                            <IconButton aria-label="close" className={classes.closeButton} onClick={() => setState({ featuredPosts: state.featuredPosts, showMsgDialog: state.showMsgDialog, showLoginDialog: false })}>
+                                <CloseIcon />
+                            </IconButton>
+                        </MuiDialogTitle>
+                        <DialogContent dividers>
+                            <div className={classes.loginformbox} >
+                                <TextField className={classes.loginform} id="standard-basic" label="Name" placeholder="Joe Bloggs" />
+                                <TextField className={classes.loginform} id="standard-basic" label="Phone Number" placeholder="079123426754" />
+
+                            </div>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button autoFocus onClick={() => setState({ featuredPosts: state.featuredPosts, showMsgDialog: state.showMsgDialog, showLoginDialog: false })} color="primary">
+                                Login
           </Button>
+                        </DialogActions>
+                    </Dialog>
+
                 </Toolbar>
                 <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
                 </Toolbar>
@@ -200,7 +217,7 @@ export default function Blog() {
                                 </div>
                             </Grid>
                             <SearchBar updateFeatureCards={(cards) => {
-                                setState({featuredPosts: JSON.parse(cards), showMsgDialog: false}) 
+                                setState({ featuredPosts: JSON.parse(cards), showMsgDialog: false })
                             }} />
                         </Grid>
                     </Paper>
@@ -219,7 +236,7 @@ export default function Blog() {
                                                     {post.user !== undefined ? post.user : post.name} {post.when !== undefined ? `(${post.when})` : ''}
                                                 </Typography>
                                                 <Typography variant="subtitle1" color="textSecondary">
-                                                    {post.phoneNumber !== undefined ? post.phoneNumber : post.who}
+                                                    {post.isCharity ? post.phoneNumber : (post.who !== undefined ? post.who : '')}
                                                 </Typography>
                                                 <Typography variant="subtitle1" color="textSecondary">
                                                     {post.postcode !== undefined ? post.postcode : post.where}
@@ -231,10 +248,10 @@ export default function Blog() {
                                                     {}
                                                 </Typography>
                                                 <Typography variant="subtitle1" paragraph color="textSecondary">
-                                                    {post.carees !== undefined ? `Cares for: ${post.carees.map(caree => caree.disability).join(", ")}` : post.for !== undefined ? `For people with: ${post.for}` : `Experience with: ${post.specialities}`}
+                                                    {post.carees !== undefined ? `Cares for someone with: ${post.carees.map(caree => caree.disability).join(", ")}` : post.for !== undefined ? `For people with: ${post.for.map(f => f).join(", ")}` : `Experience with: ${post.specialities.map(specialty => specialty).join(", ")}`}
                                                 </Typography>
                                                 <Typography variant="subtitle1" color="primary" onClick={(e) => {
-                                                    setState({featuredPosts: state.featuredPosts, showMsgDialog: true})
+                                                    setState({ featuredPosts: state.featuredPosts, showMsgDialog: true })
                                                 }}>
                                                 </Typography>
 
@@ -255,21 +272,21 @@ export default function Blog() {
                                                             maxLength="220"
                                                             fullWidth
                                                             value={state.value}
-                                                            
+
                                                             onChange={() => {
                                                                 const msg = document.getElementById("msg").value
-                                                           
+
                                                                 const blob = {
                                                                     msg,
                                                                     numberFrom: "07956265784",
                                                                     post
                                                                 }
 
-                                                                fetch(`http://localhost:5000/message`, 
+                                                                fetch(`http://localhost:5000/message`,
                                                                     {
                                                                         method: "post",
                                                                         body: JSON.stringify(blob),
-                                                                        headers: { 'Content-type': 'application/json'}
+                                                                        headers: { 'Content-type': 'application/json' }
                                                                     })
                                                                     .then(() => console.log("we did it yeah"))
                                                                     .catch(e => console.log("fuck", e))
@@ -277,23 +294,23 @@ export default function Blog() {
                                                         />
                                                     </DialogContent>
                                                     <DialogActions>
-                                                        <Button onClick={() => setState({featuredPosts: state.featuredPosts, showMsgDialog: false})} color="primary">
+                                                        <Button onClick={() => setState({ featuredPosts: state.featuredPosts, showMsgDialog: false })} color="primary">
                                                             Cancel
                                                         </Button>
-                                                        <Button onClick={() => {}} color="primary">
+                                                        <Button onClick={() => { }} color="primary">
                                                             Send
                                                         </Button>
                                                     </DialogActions>
                                                 </Dialog>
-                                                <Button onClick={() => setState({featuredPosts: state.featuredPosts, showMsgDialog: true})}>Hi there</Button>
+                                                <Button className={classes.contactButton} onClick={() => setState({ featuredPosts: state.featuredPosts, showMsgDialog: true })}>Contact {post.user !== undefined ? post.user : post.name}</Button>
                                             </CardContent>
                                         </div>
                                         {/* <Hidden xsDown> */}
-                                            <CardMedia
-                                                className={classes.cardMedia}
-                                                image="https://source.unsplash.com/random"
-                                                title="Image title"
-                                            />
+                                        <CardMedia
+                                            className={classes.cardMedia}
+                                            image="https://source.unsplash.com/random"
+                                            title="Image title"
+                                        />
                                         {/* </Hidden> */}
                                     </Card>
                                 </CardActionArea>
@@ -315,7 +332,7 @@ export default function Blog() {
               ))} */}
                         </Grid>
                         {/* End main content */}
-                        
+
                     </Grid>
                 </main>
             </Container>
