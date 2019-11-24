@@ -18,7 +18,6 @@ const getLongLat = async (postcode) => {
                     long: body.result.longitude
                 })
             } else {
-                console.log("fuck")
                 resolve(-1)
             }
         })
@@ -27,7 +26,10 @@ const getLongLat = async (postcode) => {
 
 module.exports.getLongLat = getLongLat
 
-const distanceBetweenLatLong = (lat1, lon1, lat2, lon2) => {
+const distanceBetweenLatLong = (latlong1, latlong2) => { //lat1, lon1, lat2, lon2) => {
+    const lat1 = latlong1.lat, lat2 = latlong2.lat
+    const lon1 = latlong1.long, lon2 = latlong2.long
+
 	if (lat1 == lat2 && lon1 == lon2) {
 		return 0
 	} else {
@@ -35,7 +37,7 @@ const distanceBetweenLatLong = (lat1, lon1, lat2, lon2) => {
 		const radlat2 = Math.PI * lat2/180
 		const theta = lon1-lon2
 		const radtheta = Math.PI * theta/180
-		const dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
+		let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
 		if (dist > 1) {
 			dist = 1
 		}
