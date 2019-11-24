@@ -177,7 +177,9 @@ const search = async query => {
 
     query.latlong = await postcodes.getLongLat(query.postcode);
 
-    if (query.serch === "meetup") {
+    console.log("performing query:", query)
+
+    if (query.search === "meetup") {
         return meetupSearch(users, meetups, query);
     } else if (query.search === "help") {
         return helpSearch(users, query);
@@ -187,7 +189,7 @@ const search = async query => {
 };
 
 // setTimeout(() => {
-//     console.log(meetupSearch(users, meetups, {query: "adhd", postcode: "DH8 9LD", latlong: { lat: 54.8, long: -1.9 }}))
+//     console.log(meetupSearch(users, meetups, {query: "adhd", postcode: "DH1 3LH", latlong: { lat: 54.7622, long: -1.5817 }}))
 // }, 400)
 
 module.exports = search;
