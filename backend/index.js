@@ -28,12 +28,7 @@ app.use('/search', async (request, response) => {
     console.log("Returning result to client", result, " based on ", query)
 
     response.status(200)
-<<<<<<< HEAD
-    response.json(result)
-=======
-    console.log("giving back",JSON.stringify(result))
     response.json(JSON.stringify(result))
->>>>>>> 3edef8e21253c7416e04ff3a4714959395210104
 })
 
 app.use('/message', (request, response) => {
