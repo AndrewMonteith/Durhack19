@@ -31,9 +31,9 @@ function SearchBox(props) {
     const classes = useStyles();
 
     const [state, setState] = React.useState({
-        checkedA: true,
-        checkedB: true,
-        checkedC: true,
+        checkedA: false,
+        checkedB: false,
+        checkedC: false,
     });
 
     const handleChange = name => event => {
@@ -90,7 +90,7 @@ function SearchBox(props) {
                                 }
 
                                 fetch(`http://localhost:5000/search?query=${query}&search=${search}&postcode=${postcode}`)
-                                    .then(res => res.json().then(props.updateFeatureCards))
+                                    .then(res => res.text().then(res => JSON.parse(res)).then(props.updateFeatureCards))
                             }
                         }}
                         placeholder="Search..."

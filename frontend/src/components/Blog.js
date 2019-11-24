@@ -75,6 +75,8 @@ const useStyles = makeStyles(theme => ({
     },
     card: {
         display: 'flex',
+        height: 200,
+        textAlign: 'left',
     },
     cardDetails: {
         flex: 1,
@@ -108,48 +110,22 @@ const sections = [
 
 const _featuredPosts = [
     {
-        title: 'Featured post',
-        date: 'Nov 12',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
+        "where": "DH8 9LD",
+        "when": "2019-12-01",
+        "who": "Helping You",
+        "name": "Horse Riding",
+        "desc": "Come and ride some horses and chill out",
+        "for": ["autism", "adhd", "aspergers"]
     },
     {
-        title: 'Post title',
-        date: 'Nov 11',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
+        "where": "DH3 2LY",
+        "when": "2019-15-02",
+        "who": "Hettie Delvin",
+        "name": "Fairground",
+        "desc": "Enjoy the bright lights and funfair rides!",
+        "for": ["spina bifida", "motor neuron disease"]
     },
-    {
-        title: 'Post title',
-        date: 'Nov 11',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    },
-    {
-        title: 'Post title',
-        date: 'Nov 11',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    },
-    {
-        title: 'Post title',
-        date: 'Nov 11',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    },
-    {
-        title: 'Post title',
-        date: 'Nov 11',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    },
-    {
-        title: 'Post title',
-        date: 'Nov 11',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    },
-];
+  ]
 
 const posts = ['frfr', 'eee', 'dede'];
 
@@ -161,7 +137,7 @@ export default function Blog() {
     const classes = useStyles();
 
     const [state, setState] = React.useState({
-        featuredPosts: _featuredPosts
+        featuredPosts: [] //_featuredPosts
     });
 
     return (
@@ -236,7 +212,7 @@ export default function Blog() {
                             </Grid>
                             <SearchBar updateFeatureCards={(cards) => {
                                 console.log(cards)
-                                setState({featuredPosts: cards}) 
+                                setState({featuredPosts: JSON.parse(cards)}) 
                             }} />
                         </Grid>
                     </Paper>
@@ -258,32 +234,41 @@ export default function Blog() {
                     {/* Sub featured posts */}
                     <Grid container spacing={4}>
                         {state.featuredPosts.map(post => (
-                            <Grid item key={post.title} xs={12} md={6}>
+                            <Grid item key={post.user !== undefined ? post.user : post.name} xs={12} md={6}>
                                 <CardActionArea component="a" href="#">
                                     <Card className={classes.card}>
                                         <div className={classes.cardDetails}>
                                             <CardContent>
                                                 <Typography component="h2" variant="h5">
-                                                    {post.title}
+                                                    {post.user !== undefined ? post.user : post.name} {post.when !== undefined ? `(${post.when})` : ''}
                                                 </Typography>
                                                 <Typography variant="subtitle1" color="textSecondary">
-                                                    {post.date}
+                                                    {post.phoneNumber !== undefined ? post.phoneNumber : post.who}
                                                 </Typography>
-                                                <Typography variant="subtitle1" paragraph>
-                                                    {post.description}
+                                                <Typography variant="subtitle1" color="textSecondary">
+                                                    {post.postcode !== undefined ? post.postcode : post.where}
+                                                </Typography>
+                                                <Typography variant="subtitle1" color="textSecondary">
+                                                    {post.desc !== undefined ? post.desc : ''}
+                                                </Typography>
+                                                <Typography variant="subtitle1" color="textSecondary">
+                                                    {}
+                                                </Typography>
+                                                <Typography variant="subtitle1" paragraph color="textSecondary">
+                                                    {post.carees !== undefined ? `Cares for: ${post.carees.map(caree => caree.disability).join(", ")}` : post.for !== undefined ? `For people with: ${post.for}` : `Experience with: ${post.specialities}`}
                                                 </Typography>
                                                 <Typography variant="subtitle1" color="primary">
                                                     Continue reading...
                         </Typography>
                                             </CardContent>
                                         </div>
-                                        <Hidden xsDown>
+                                        {/* <Hidden xsDown> */}
                                             <CardMedia
                                                 className={classes.cardMedia}
                                                 image="https://source.unsplash.com/random"
                                                 title="Image title"
                                             />
-                                        </Hidden>
+                                        {/* </Hidden> */}
                                     </Card>
                                 </CardActionArea>
                             </Grid>
@@ -304,21 +289,7 @@ export default function Blog() {
               ))} */}
                         </Grid>
                         {/* End main content */}
-                        {/* Sidebar */}
-                        <Grid item xs={12} md={4}>
-                            <Paper elevation={0} className={classes.sidebarAboutBox}>
-                                <Typography variant="h6" gutterBottom>
-                                    About
-                </Typography>
-                                <Typography>
-                                    Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit
-                                    amet fermentum. Aenean lacinia bibendum nulla sed consectetur.
-                </Typography>
-                            </Paper>
-
-
-                        </Grid>
-                        {/* End sidebar */}
+                        
                     </Grid>
                 </main>
             </Container>
