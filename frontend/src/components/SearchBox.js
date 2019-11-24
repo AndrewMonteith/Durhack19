@@ -1,16 +1,9 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import SearchBar from 'material-ui-search-bar'
-import { TextField, IconButton, Button, Checkbox, FormControl, FormControlLabel, FormGroup } from '@material-ui/core'
+import { TextField, IconButton, Button, Checkbox, FormControl, FormControlLabel, FormGroup, RadioGroup, Radio } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
+import NearMeOutlinedIcon from '@material-ui/icons/NearMeOutlined';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { green } from '@material-ui/core/colors';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import Favorite from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 const useStyles = makeStyles(theme => ({
     searchbox: {
@@ -24,22 +17,14 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         bottom: '30%',
     },
-    spacing: {
-        padding: '20px',
-        borderColor: 'white',
+    searchfield: {
+        width: '100%',
     },
     formrow: {
         margin: 'auto',
         width: '70%',
     },
-    toolbarSecondary: {
-        justifyContent: 'space-between',
-        overflowX: 'auto',
-    },
-    toolbarLink: {
-        padding: theme.spacing(1),
-        flexShrink: 0,
-    }
+
 }))
 
 function SearchBox() {
@@ -49,13 +34,12 @@ function SearchBox() {
     const [state, setState] = React.useState({
         checkedA: true,
         checkedB: true,
-        checkedF: true,
-        checkedG: true,
-      });
-    
-      const handleChange = name => event => {
+        checkedC: true,
+    });
+
+    const handleChange = name => event => {
         setState({ ...state, [name]: event.target.checked });
-      };
+    };
 
     return (
         <>
@@ -89,23 +73,50 @@ function SearchBox() {
                     label="Looking for Help"
                 />
                 <div className={classes.searchbox}>
-                <TextField
-                    id="input-with-icon-textfield"
-                    placeholder="Search..."
-                    InputProps={{
-                        disableUnderline: true,
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <IconButton aria-label="">
-                                    <SearchIcon />
-                                </IconButton>
-                            </InputAdornment>
-                        )
-                    }}
-                />
-            </div>
+                    <TextField
+                        id="search-field"
+                        className={classes.searchfield}
+                        onKeyPress={(e) => {
+                            if (e.key === 'Enter') {
+                                console.log(document.getElementById("search-field").value)
+                                console.log(document.getElementById("postcode-field").value)
+                                e.preventDefault();
+                            }
+                        }}
+                        placeholder="Search..."
+                        InputProps={{
+                            disableUnderline: true,
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <IconButton aria-label="">
+                                        <SearchIcon />
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                            endAdornment: (
+                                <InputAdornment position="start">
+                                    <TextField
+                                        id="postcode-field"
+                                        placeholder="Postcode..."
+                                        InputProps={{
+                                            disableUnderline: true,
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <IconButton aria-label="">
+                                                        <NearMeOutlinedIcon />
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            )
+                                        }}
+
+                                    />
+                                </InputAdornment>
+                            )
+                        }}
+                    />
+                </div>
             </FormGroup>
-            
+
 
 
 
