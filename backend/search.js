@@ -21,17 +21,20 @@ const rank = (source, ranker) => {
     return sorted.map(item => item[1]);
 };
 
+const isMatch = (str, substr) => str.toUpperCase().includes(substr.toUpperCase())
+
 const relevanceToQuery = (user, query) => {
     let total = 0;
 
     // charities names matter
     if (user.isCharity) {
-        if (user.user.includes(query)) {
+        // console.log(query)
+        if (isMatch(user.user, query)) {
             total += valueForStringMatch(2, query.length);
         }
 
         for (const speciality of user.specialities) {
-            if (speciality.includes(query)) {
+            if (isMatch(speciality, query)) {
                 total += valueForStringMatch(4, query.length);
             }
         }
@@ -39,7 +42,7 @@ const relevanceToQuery = (user, query) => {
         const now = new Date();
 
         for (const caree of user.carees) {
-            if (caree.disability.includes(query)) {
+            if (isMatch(caree.disability, query)) {
                 total += valueForStringMatch(1, query.length);
 
                 const caringFor = (now - Date.parse(caree.since)) / 31_557_600_000; // milliseconds in a year
@@ -93,7 +96,7 @@ const meetupRelevanceForMeetups = (meetup, query) => {
     }
 
     for (const isFor of meetup.for) {
-        if (isFor.includes(query)) {
+        if (isMatch(isFor, query)) {
             total += valueForStringMatch(2.5, query.length);
         }
     }
@@ -130,7 +133,7 @@ const meetupSearch = (users, meetups, query) => {
 };
 
 const helpRelevanceForUser = (user, query) => {
-    let total = relevanceToQuery(user, query);
+    let total = relevanceToQuery(user, query.query);
 
     const acceptableDistance = user.isCharity ? 50 : 10;
     const dist = postcodes.distanceBetweenLatLong(user.latlong, query.latlong);
@@ -184,7 +187,7 @@ const search = async query => {
     }
 };
 
-module.exports.search = search;
+module.exports = search;
 
 // setTimeout(() => {
 //     (async function() {

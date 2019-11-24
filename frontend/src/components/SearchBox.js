@@ -77,8 +77,25 @@ function SearchBox() {
                         className={classes.searchfield}
                         onKeyPress={(e) => {
                             if (e.key === 'Enter') {
-                                console.log(document.getElementById("search-field").value)
-                                console.log(document.getElementById("postcode-field").value)
+                                const query = document.getElementById("search-field").value 
+                                const postcode = document.getElementById("postcode-field").value 
+
+                                let search;
+                                if (state.checkedA) {
+                                    search = "advice"
+                                } else if (state.checkedB) {
+                                    search = "meetup"
+                                } else {
+                                    search = "help"
+                                }
+
+                                fetch(`http://localhost:5000/search?query=${query}&search=${search}&postcode=${postcode}`)
+                                    .then(res => console.log(res))
+
+                                // Make post request
+                                // .then(result => func-from-parent(result))
+                                // console.log(document.getElementById("search-field").value)
+                                // console.log(document.getElementById("postcode-field").value)
                                 e.preventDefault();
                             }
                         }}
