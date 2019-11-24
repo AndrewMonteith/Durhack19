@@ -36,6 +36,8 @@ function Copyright() {
     );
 }
 
+let username
+
 const useStyles = makeStyles(theme => ({
     toolbar: {
         borderBottom: `1px solid ${theme.palette.divider}`,
@@ -131,6 +133,7 @@ const useStyles = makeStyles(theme => ({
 const _featuredPosts = []
 
 
+
 export default function Blog() {
     const classes = useStyles();
 
@@ -162,9 +165,9 @@ export default function Blog() {
                     <IconButton>
                         <SearchIcon />
                     </IconButton>
-                    <Button onClick={() => setState({ featuredPosts: state.featuredPosts, showMsgDialog: state.showMsgDialog, showLoginDialog: true })} variant="outlined" size="small">
+                    {state.isLoggedin ? <Typography variant="h6">{username}</Typography> : <Button onClick={() => setState({ featuredPosts: state.featuredPosts, showMsgDialog: state.showMsgDialog, showLoginDialog: true })} variant="outlined" size="small">
                         Login
-                     </Button>
+                     </Button>}
                     <Dialog aria-labelledby="customized-dialog-title" open={state.showLoginDialog}>
                         <MuiDialogTitle disableTypography className={classes.root}>
                             <Typography variant="h6">Login</Typography>
@@ -174,13 +177,15 @@ export default function Blog() {
                         </MuiDialogTitle>
                         <DialogContent dividers>
                             <div className={classes.loginformbox} >
-                                <TextField className={classes.loginform} id="standard-basic" label="Name" placeholder="Joe Bloggs" />
-                                <TextField className={classes.loginform} id="standard-basic" label="Phone Number" placeholder="079123426754" />
+                                <TextField className={classes.loginform} onChange={(e) => { username = e.target.value }} id="standard-name" label="Name" placeholder="Joe Bloggs" />
+                                <TextField className={classes.loginform} id="standard-phone" label="Phone Number" placeholder="079123426754" />
 
                             </div>
                         </DialogContent>
                         <DialogActions>
-                            <Button autoFocus onClick={() => setState({ featuredPosts: state.featuredPosts, showMsgDialog: state.showMsgDialog, showLoginDialog: false })} color="primary">
+                            <Button autoFocus onClick={() => {
+                                setState({ featuredPosts: state.featuredPosts, showMsgDialog: state.showMsgDialog, showLoginDialog: false, isLoggedin: true })}} color="primary">
+                                
                                 Login
           </Button>
                         </DialogActions>
