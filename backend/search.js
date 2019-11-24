@@ -28,7 +28,6 @@ const relevanceToQuery = (user, query) => {
 
     // charities names matter
     if (user.isCharity) {
-        // console.log(query)
         if (isMatch(user.user, query)) {
             total += valueForStringMatch(2, query.length);
         }
@@ -96,7 +95,7 @@ const meetupRelevanceForMeetups = (meetup, query) => {
     }
 
     for (const isFor of meetup.for) {
-        if (isMatch(isFor, query)) {
+        if (isMatch(isFor, query.query)) {
             total += valueForStringMatch(2.5, query.length);
         }
     }
@@ -186,6 +185,10 @@ const search = async query => {
         return adviceSearch(users, query);
     }
 };
+
+setTimeout(() => {
+    console.log(meetupSearch(users, meetups, {query: "adhd", postcode: "DH8 9LD", latlong: { lat: 54.8, long: -1.9 }}))
+}, 400)
 
 module.exports = search;
 
