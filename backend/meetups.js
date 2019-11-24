@@ -5,7 +5,7 @@ const data = [
         "who": "Helping You",
         "name": "Horse Riding",
         "desc": "Come and ride some horses and chill out",
-        "for": ["autism", "adhd", "aspergers"]
+        "for": ["Autism", "ADHD", "Aspergers"]
     },
     {
         "where": "DH3 2LY",
@@ -13,7 +13,7 @@ const data = [
         "who": "Hettie Delvin",
         "name": "Fairground",
         "desc": "Enjoy the bright lights and funfair rides!",
-        "for": ["spina bifida", "motor neuron disease"]
+        "for": ["Spina Bifida", "Motor Neurone Disease"]
     },
     {
         "where": "DH3 3JL",
@@ -21,7 +21,7 @@ const data = [
         "who": "Revitalise",
         "name": "Free Lunch",
         "desc": "Come and have some lunch and meet some people",
-        "for": ["autism", "adhd", "aspergers", "motor neuron disease", "cystic fibrosis"]
+        "for": ["Autism", "ADHD", "Aspergers", "Motor Neurone Disease", "Cystic Fibrosis"]
     },
     {
         "where": "DH1 2DB",
@@ -29,7 +29,7 @@ const data = [
         "who": "Tyler Wheeler",
         "name": "Racing Driver",
         "desc": "Burn some rubber and have some fun!",
-        "for": ["dementia", "spina bifida", "aspergers"]
+        "for": ["Dementia", "Spina Bifida", "Aspergers"]
     },
     {
         "where": "DH6 2HA",
@@ -37,7 +37,7 @@ const data = [
         "name": "Coffee Morning",
         "who": "Revitalise",
         "desc": "Grab some cakes and have meet some nice people",
-        "for": ["autism", "dementia", "adhd", "aspergers", "motor neuron disease"]
+        "for": ["Autism", "Dementia", "ADHD", "Aspergers", "Motor Neurone Disease"]
     }
 ]
 

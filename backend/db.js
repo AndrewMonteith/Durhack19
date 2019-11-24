@@ -2,12 +2,12 @@
 /*
     Current List of Disabilities:
     autism 
-    dementia
-    adhd
-    aspergers
-    motor neuron disease
-    cystic fibrosis
-    spina bifida
+    Dementia
+    ADHD
+    Aspergers
+    Motor Neurone Disease
+    Cystic Fibrosis
+    Spina Bifida
 */
 
 const createNewUser = (name, postcode, phoneNumber, willing, additional) => {

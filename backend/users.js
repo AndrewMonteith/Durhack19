@@ -8,8 +8,8 @@ const data = [
             "help"
         ],
         "specialities": [
-            "aspergers",
-            "spina bifida"
+            "Aspergers",
+            "Spina Bifida"
         ]
     },
     {
@@ -22,8 +22,8 @@ const data = [
             "help"
         ],
         "specialities": [
-            "adhd",
-            "motor neuron disease"
+            "ADHD",
+            "Motor Neurone Disease"
         ]
     },
     {
@@ -36,8 +36,8 @@ const data = [
             "help"
         ],
         "specialities": [
-            "aspergers",
-            "dementia"
+            "Aspergers",
+            "Dementia"
         ]
     },
     {
@@ -50,7 +50,7 @@ const data = [
         ],
         "specialities": [
             "Cystic Fibrosis",
-            "dementia"
+            "Dementia"
         ]
     },
 
@@ -66,7 +66,7 @@ const data = [
         "carees": [
             {
                 "gender": "F",
-                "disability": "spina bifida",
+                "disability": "Spina Bifida",
                 "since": "2017-08-06"
             }
         ]
@@ -79,7 +79,7 @@ const data = [
         "carees": [
             {
                 "gender": "F",
-                "disability": "motor neuron disease",
+                "disability": "Motor Neurone Disease",
                 "since": "2016-08-04"
             }
         ]
@@ -110,7 +110,7 @@ const data = [
         "carees": [
             {
                 "gender": "F",
-                "disability": "motor neuron disease",
+                "disability": "Motor Neurone Disease",
                 "since": "2010-08-04"
             },
             {
@@ -132,7 +132,22 @@ const data = [
         "carees": [
             {
                 "gender": "M",
-                "disability": "adhd",
+                "disability": "ADHD",
+                "since": "2012-05-03"
+            }
+        ]
+    },
+    {
+        "user": "Jak Cunningham",
+        "postcode": "DH1 4BJ",
+        "phoneNumber": "07129770877",
+        "willing": [
+            "help"
+        ],
+        "carees": [
+            {
+                "gender": "F",
+                "disability": "Autism",
                 "since": "2012-05-03"
             }
         ]

@@ -187,7 +187,7 @@ const search = async query => {
 };
 
 // setTimeout(() => {
-//     console.log(meetupSearch(users, meetups, {query: "adhd", postcode: "DH1 3LH", latlong: { lat: 54.7622, long: -1.5817 }}))
+//     console.log(meetupSearch(users, meetups, {query: "ADHD", postcode: "DH1 3LH", latlong: { lat: 54.7622, long: -1.5817 }}))
 // }, 400)
 
 module.exports = search;
