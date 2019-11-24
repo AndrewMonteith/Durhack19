@@ -7,6 +7,7 @@ const app = express();
 
 app.use('/signup', signup);
 app.use('/login', login);
+app.use('/search', search)
 
 
 app.get('/', (req, res) => {

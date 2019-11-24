@@ -1,6 +1,5 @@
 "use strict";
 
-const fs = require("fs");
 const postcodes = require("./postcodes");
 
 const users = require("./users");
