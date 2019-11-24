@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.grey[800],
         color: theme.palette.common.white,
         marginBottom: theme.spacing(4),
-        backgroundImage: 'url(https://source.unsplash.com/user/erondu)',
+        backgroundImage: 'url(https://images.ctfassets.net/j2n94q3surmy/2R8y1rrCKswo0GWk0YW02S/a424d14512878fdaf5e1ce93503f1055/How_to_Find_a_Carer___Dementia_Live-in_Care___Elder.jpg?w=1200&h=630&fit=fill&q=85)',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -131,6 +131,7 @@ const useStyles = makeStyles(theme => ({
 
 
 const _featuredPosts = []
+let input;
 
 
 
@@ -202,7 +203,8 @@ export default function Blog() {
                         {
                             <img
                                 style={{ display: 'none' }}
-                                src="https://source.unsplash.com/user/erondu"
+                                // src="https://images.ctfassets.net/j2n94q3surmy/2R8y1rrCKswo0GWk0YW02S/a424d14512878fdaf5e1ce93503f1055/How_to_Find_a_Carer___Dementia_Live-in_Care___Elder.jpg?w=1200&h=630&fit=fill&q=85"
+                                // src={carer}
                                 alt="background"
                             />
                         }
@@ -276,33 +278,39 @@ export default function Blog() {
                                                             rows="4"
                                                             maxLength="220"
                                                             fullWidth
-                                                            value={state.value}
+                                                            // value={state.value}
 
-                                                            onChange={() => {
-                                                                const msg = document.getElementById("msg").value
-
-                                                                const blob = {
-                                                                    msg,
-                                                                    numberFrom: "07956265784",
-                                                                    post
-                                                                }
-
-                                                                fetch(`http://localhost:5000/message`,
-                                                                    {
-                                                                        method: "post",
-                                                                        body: JSON.stringify(blob),
-                                                                        headers: { 'Content-type': 'application/json' }
-                                                                    })
-                                                                    .then(() => console.log("we did it yeah"))
-                                                                    .catch(e => console.log("fuck", e))
-                                                            }}
+                                                            onChange = { (e) => { 
+                                                                console.log(e.target.value)
+                                                                input = e.target.value
+                                                            } }
+                                                                // setState({ value: e.target.value, ...state}) } }
+                                                            // onChange={(e) => console.log(e.target.value)}                                                            }}
                                                         />
                                                     </DialogContent>
                                                     <DialogActions>
                                                         <Button onClick={() => setState({ featuredPosts: state.featuredPosts, showMsgDialog: false })} color="primary">
                                                             Cancel
                                                         </Button>
-                                                        <Button onClick={() => { }} color="primary">
+                                                        <Button onClick={() => {
+                                                            const msg = input //document.getElementById("msg").value
+                                                            console.log(`sending ${msg}`)
+
+                                                            const blob = {
+                                                                msg,
+                                                                numberFrom: "+447956265784",
+                                                                post
+                                                            }
+
+                                                            fetch(`http://localhost:5000/message`, 
+                                                                {
+                                                                    method: "post",
+                                                                    body: JSON.stringify(blob),
+                                                                    headers: { 'Content-type': 'application/json'}
+                                                                })
+                                                                .then(() => console.log("fuck yeah"))
+                                                                .catch(e => console.log("fuck", e))
+                                                        }} color="primary">
                                                             Send
                                                         </Button>
                                                     </DialogActions>

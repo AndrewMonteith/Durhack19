@@ -44,7 +44,7 @@ const relevanceToQuery = (user, query) => {
             if (isMatch(caree.disability, query)) {
                 total += valueForStringMatch(1, query.length);
 
-                const caringFor = (now - Date.parse(caree.since)) / 31_557_600_000; // milliseconds in a year
+                const caringFor = (now - Date.parse(caree.since)) / 31557600000; // milliseconds in a year
 
                 total += valueForStringMatch(1, caringFor);
             }

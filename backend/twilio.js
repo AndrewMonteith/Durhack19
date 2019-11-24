@@ -1,5 +1,5 @@
-const sid = 'ACf48e91c1e36facb8b16fd7d81f9fc64e';
-const token = 'e4a28dec1ccd7e2137ed4828b171cbd8';
+const sid = 'AC44718136ca540d984a7877c87d052018';
+const token = '18f3dda5ae8c389ed982bdd57c741373';
 const client = require('twilio')(sid, token);
 
 const sendMessage = (from, to, body) => {
@@ -11,8 +11,5 @@ const sendMessage = (from, to, body) => {
         .catch(err => console.log(`error message ${err}`))
 
 }
-
-sendMessage('+441133207932', '+447956265784', 'fuck')
-
 
 module.exports.sendMessage = sendMessage;
