@@ -186,17 +186,8 @@ const search = async query => {
     }
 };
 
-setTimeout(() => {
-    console.log(meetupSearch(users, meetups, {query: "adhd", postcode: "DH8 9LD", latlong: { lat: 54.8, long: -1.9 }}))
-}, 400)
+// setTimeout(() => {
+//     console.log(meetupSearch(users, meetups, {query: "adhd", postcode: "DH8 9LD", latlong: { lat: 54.8, long: -1.9 }}))
+// }, 400)
 
 module.exports = search;
-
-// setTimeout(() => {
-//     (async function() {
-//         const query = { query: "motor", search: "help", postcode: "DH3 2LY" };
-
-//         console.log(await search(query));
-//     })();
-//     // console.log(helpSearch(users, {query: "motor", latlong: { lat: 54.849287, long: -1.574333 }}))
-// }, 400);
