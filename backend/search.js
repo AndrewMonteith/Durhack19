@@ -177,8 +177,6 @@ const search = async query => {
 
     query.latlong = await postcodes.getLongLat(query.postcode);
 
-    console.log("performing query:", query)
-
     if (query.search === "meetup") {
         return meetupSearch(users, meetups, query);
     } else if (query.search === "help") {

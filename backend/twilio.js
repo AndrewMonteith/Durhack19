@@ -12,4 +12,7 @@ const sendMessage = (from, to, body) => {
 
 }
 
+sendMessage('+441133207932', '+447956265784', 'fuck')
+
+
 module.exports.sendMessage = sendMessage;

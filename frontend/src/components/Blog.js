@@ -16,6 +16,12 @@ import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import Markdown from './Markdown';
 import SearchBar from './SearchBox'
 
@@ -137,7 +143,8 @@ export default function Blog() {
     const classes = useStyles();
 
     const [state, setState] = React.useState({
-        featuredPosts: [] //_featuredPosts
+        featuredPosts: [], //_featuredPosts
+        showMsgDialog: false
     });
 
     return (
@@ -164,20 +171,9 @@ export default function Blog() {
           </Button>
                 </Toolbar>
                 <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
-                    {/* {sections.map(section => (
-            <Link
-              color="inherit"
-              noWrap
-              key={section}
-              variant="body2"
-              href="#"
-              className={classes.toolbarLink}
-            >
-              {section}
-            </Link>
-          ))} */}
                 </Toolbar>
                 <main>
+
                     {/* Main featured post */}
                     <Paper className={classes.mainFeaturedPost}>
                         {/* Increase the priority of the hero background image */}
@@ -201,34 +197,14 @@ export default function Blog() {
                                         <br></br>
                                         <br></br>
                                     </Typography>
-                                    {/* <Typography variant="h5" color="inherit" paragraph>
-                    Multiple lines of text that form the lede, informing new readers quickly and
-                    efficiently about what&apos;s most interesting in this post&apos;s contents.
-                  </Typography>
-                  <Link variant="subtitle1" href="#">
-                    Continue reading…
-                  </Link> */}
                                 </div>
                             </Grid>
                             <SearchBar updateFeatureCards={(cards) => {
-                                console.log(cards)
-                                setState({featuredPosts: JSON.parse(cards)}) 
+                                setState({featuredPosts: JSON.parse(cards), showMsgDialog: false}) 
                             }} />
                         </Grid>
                     </Paper>
                     <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
-                        {/* {sections.map(section => (
-            <Link
-              color="inherit"
-              noWrap
-              key={section}
-              variant="body2"
-              href="#"
-              className={classes.toolbarLink}
-            >
-              {section}
-            </Link>
-          ))} */}
                     </Toolbar>
                     {/* End main featured post */}
                     {/* Sub featured posts */}
@@ -257,9 +233,59 @@ export default function Blog() {
                                                 <Typography variant="subtitle1" paragraph color="textSecondary">
                                                     {post.carees !== undefined ? `Cares for: ${post.carees.map(caree => caree.disability).join(", ")}` : post.for !== undefined ? `For people with: ${post.for}` : `Experience with: ${post.specialities}`}
                                                 </Typography>
-                                                <Typography variant="subtitle1" color="primary">
-                                                    Continue reading...
-                        </Typography>
+                                                <Typography variant="subtitle1" color="primary" onClick={(e) => {
+                                                    setState({featuredPosts: state.featuredPosts, showMsgDialog: true})
+                                                }}>
+                                                </Typography>
+
+                                                <Dialog open={state.showMsgDialog} aria-labelledby="form-dialog-title">
+                                                    <DialogTitle id="form-dialog-title">Send Message</DialogTitle>
+                                                    <DialogContent>
+                                                        <DialogContentText>
+                                                            Write here the text message you wish to send. Don't forget to be polite!
+                                                        </DialogContentText>
+                                                        <TextField
+                                                            autoFocus
+                                                            margin="dense"
+                                                            id="msg"
+                                                            label="Message"
+                                                            placeholder="Write your message here"
+                                                            multiline="true"
+                                                            rows="4"
+                                                            maxLength="220"
+                                                            fullWidth
+                                                            value={state.value}
+                                                            
+                                                            onChange={() => {
+                                                                const msg = document.getElementById("msg").value
+                                                           
+                                                                const blob = {
+                                                                    msg,
+                                                                    numberFrom: "07956265784",
+                                                                    post
+                                                                }
+
+                                                                fetch(`http://localhost:5000/message`, 
+                                                                    {
+                                                                        method: "post",
+                                                                        body: JSON.stringify(blob),
+                                                                        headers: { 'Content-type': 'application/json'}
+                                                                    })
+                                                                    .then(() => console.log("we did it yeah"))
+                                                                    .catch(e => console.log("fuck", e))
+                                                            }}
+                                                        />
+                                                    </DialogContent>
+                                                    <DialogActions>
+                                                        <Button onClick={() => setState({featuredPosts: state.featuredPosts, showMsgDialog: false})} color="primary">
+                                                            Cancel
+                                                        </Button>
+                                                        <Button onClick={() => {}} color="primary">
+                                                            Send
+                                                        </Button>
+                                                    </DialogActions>
+                                                </Dialog>
+                                                <Button onClick={() => setState({featuredPosts: state.featuredPosts, showMsgDialog: true})}>Hi there</Button>
                                             </CardContent>
                                         </div>
                                         {/* <Hidden xsDown> */}

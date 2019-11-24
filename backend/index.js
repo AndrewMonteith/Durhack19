@@ -34,9 +34,9 @@ app.use('/search', async (request, response) => {
 app.use('/message', (request, response) => {
     request.header("Access-Control-Allow-Origin")
 
-    const requestBlob = request.query.blob
-    const numberFrom = request.query.fromNumber;
-    const requestMessage = request.query.message
+    const requestBlob = users[0] // JSON.parse(request.query.blob)
+    const numberFrom = '447399309325' // request.query.fromNumber;
+    const requestMessage = 'suck my dick' // request.query.message
 
     let numberTo
     if (typeof(requestBlob.isCharity) === 'boolean') {
@@ -51,9 +51,35 @@ app.use('/message', (request, response) => {
         }
     }
 
+    console.log(`Going to ${numberTo}`)
+
     twilio.sendMessage(numberFrom, numberTo, requestMessage)
 
+    response.status(200)
+
 })
+
+    const requestBlob = users[0] // JSON.parse(request.query.blob)
+    const numberFrom = '44113320793' // request.query.fromNumber;
+                        
+    const requestMessage = 'suck my dick' // request.query.message
+
+    let numberTo
+    if (typeof(requestBlob.isCharity) === 'boolean') {
+        numberTo = requestBlob.phoneNumber
+    } else {
+        // Look in users for who is running the meetup
+        for (const user of users) {
+            if (user.user === requestBlob.who) {
+                numberTo = requestBlob.who
+                break 
+            }
+        }
+    }
+
+    console.log(`Going to ${numberTo}`)
+
+    twilio.sendMessage(numberFrom, numberTo, requestMessage)
 
 
 app.get('/', (req, res) => {
