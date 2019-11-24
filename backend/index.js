@@ -59,8 +59,11 @@ app.use('/message', (request, response) => {
         }
     }
 
+    
     // hardcode since we need to twilio only lets you send messages to approved numbers
-    numberTo = '+447956265784'
+    numberTo = "+447956265784"
+    console.log('From number:', numberFrom)
+    console.log('To Number:', numberTo)
 
     console.log(`Going to ${numberTo}`)
 
