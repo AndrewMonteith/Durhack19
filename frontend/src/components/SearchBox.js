@@ -24,7 +24,6 @@ const useStyles = makeStyles(theme => ({
         margin: 'auto',
         width: '70%',
     },
-
 }))
 
 function SearchBox() {

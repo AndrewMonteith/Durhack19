@@ -1,4 +1,4 @@
-[
+const data = [
     {
         "user": "Estio Healthcare",
         "postcode": "DH1 3HL",
@@ -73,7 +73,7 @@
     },
     {
         "user": "Patricia Hicks",
-        "postcode": "DH4 9UD",
+        "postcode": "DH1 4EL",
         "phoneNumber": "03069 990410",
         "willing": [],
         "carees": [
@@ -117,7 +117,7 @@
     },
     {
         "user": "Shana Miranda",
-        "postcode": "DH9 6EN",
+        "postcode": "DH1 5QR",
         "phoneNumber": "03069 990198",
         "willing": [
             "advice",
@@ -131,5 +131,15 @@
                 "since": "2012-05-03"
             }
         ]
-    },
+    }
 ]
+
+const postcodes = require("./postcodes")
+
+for (let ii = 0; ii < data.length; ++ii) {
+    postcodes.getLongLat(data[ii].postcode).then(latlong => { 
+        data[ii].latlong = latlong 
+    })
+}
+
+module.exports = data;
